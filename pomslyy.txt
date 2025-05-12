@@ -1,0 +1,6 @@
+rozwijanie dan na ekran // done
+dodawanie tagów i ocen //oceny są git.
+sortowania
+piwo
+owieranie widoku na cały erktran przepisu/ udostepienie share fb mess mail itd..
+cos pokinic by enum dodac oreslajacy co to jest za typ picie jedzienie deser itd..
