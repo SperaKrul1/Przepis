@@ -388,22 +388,19 @@ fun RecipeDetailScreen(
                     // dołączamy tekst
                     putExtra(Intent.EXTRA_TEXT, shareText)
 
-                    // jeśli mamy dostępne URI obrazka, dołączamy je jako stream
+                    // jeżeli mamy URI obrazka, dołączamy go
                     recipe.imageUrl
                         ?.let { Uri.parse(it) }
                         ?.let { imageUri ->
                             putExtra(Intent.EXTRA_STREAM, imageUri)
                             type = context.contentResolver.getType(imageUri) ?: "image/*"
-                            // musimy przyznać odbiorcom uprawnienia:
                             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                         }
                         ?: run {
-                            // w przeciwnym razie tylko tekst
                             type = "text/plain"
                         }
                 }
 
-                // wywołujemy chooser
                 context.startActivity(Intent.createChooser(intent, "Udostępnij przepis"))
             }) {
                 Icon(Icons.Default.Share, contentDescription = "Udostępnij")
@@ -413,6 +410,13 @@ fun RecipeDetailScreen(
         Spacer(Modifier.height(8.dp))
 
         Text(recipe.title, style = MaterialTheme.typography.headlineLarge)
+        Spacer(Modifier.height(4.dp))
+
+        // **Nowa linia z wyświetleniem kategorii/tagu**
+        Text(
+            text = "Kategoria: ${recipe.category.label}",
+            style = MaterialTheme.typography.bodyMedium
+        )
         Spacer(Modifier.height(8.dp))
 
         recipe.imageUrl?.let { url ->

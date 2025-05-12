@@ -17,6 +17,7 @@ data class Recipe(
     val isCustom: Boolean = true,
 
     val tags: String = "",
-
+    val category: RecipeType = RecipeType.LUNCH,
     val rating: Float = 0f   // ocena 0.0–5.0 w krokach co 0.5
+
 )

@@ -5,14 +5,22 @@ import android.widget.RatingBar
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -37,6 +45,8 @@ fun AddRecipeScreen(
     var ingredients by remember { mutableStateOf("") }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     var rating by remember { mutableStateOf(0f) }     // ← tu dodajemy ocenę
+    var category    by remember { mutableStateOf(RecipeType.LUNCH) }
+    var menuExpanded by remember { mutableStateOf(false) }
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -95,6 +105,59 @@ fun AddRecipeScreen(
                     .height(200.dp)
             )
         }
+
+        Spacer(Modifier.height(16.dp))
+
+// --- sekcja: wybór kategorii ---
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // statyczny label
+            Text(
+                "Kategoria:",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.weight(0.3f)
+            )
+            // obszar klikany do rozwijania menu
+            Row(
+                modifier = Modifier
+                    .weight(0.7f)
+                    .clickable { menuExpanded = true }
+                    .padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.End
+            ) {
+                Text(
+                    category.label,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Icon(
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = "Wybierz kategorię"
+                )
+            }
+        }
+
+// sam dropdown pod spodem
+        DropdownMenu(
+            expanded = menuExpanded,
+            onDismissRequest = { menuExpanded = false }
+        ) {
+            RecipeType.values().forEach { opt ->
+                DropdownMenuItem(
+                    text = { Text(opt.label) },
+                    onClick = {
+                        category = opt
+                        menuExpanded = false
+                    }
+                )
+            }
+        }
+// ----------------------
 
         Spacer(Modifier.height(16.dp))
 

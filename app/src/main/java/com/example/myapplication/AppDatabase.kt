@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Recipe::class], version = 4)  // Zwiększ wersję
+@Database(entities = [Recipe::class], version = 5)  // Zwiększ wersję
 abstract class AppDatabase : RoomDatabase() {
     abstract fun recipeDao(): RecipeDao
 
