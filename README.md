@@ -71,4 +71,5 @@ A modern Android application built with Jetpack Compose that lets you create, ma
 
 1. **Clone the repo**  
    ```bash
-   git clone https://github.com/SperaKrul1/RecipeApp.git
+   git clone https://github.com/SperaKrul1/Przepis.git
+   
