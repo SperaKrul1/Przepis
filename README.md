@@ -60,13 +60,6 @@ A modern Android application built with Jetpack Compose that lets you create, ma
 
 ## Architecture Overview
 
-┌───────────────────┐       ┌─────────────┐       ┌─────────────┐
-│   UI (Compose)    │ ↔───▶ │ ViewModel   │ ↔───▶ │  Room DB    │
-│  Home / List /    │       │ (StateFlow) │       │ (RecipeDao) │
-│  Detail / Add /   │       └─────────────┘       └─────────────┘
-│  Edit / Search    │
-└───────────────────┘
-
 
 - **ViewModel** holds the single source of truth and exposes recipes as a reactive flow.  
 - **Room** persists recipes across app restarts, with destructive migrations for dev.  
